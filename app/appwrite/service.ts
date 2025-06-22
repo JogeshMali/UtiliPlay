@@ -2,8 +2,8 @@ import {Account, Client, ID} from 'react-native-appwrite'
 import {PaperProvider,Snackbar} from 'react-native-paper'
 import { string } from 'yup'
 const appwriteClient = new Client()
-const APPWRITE_ENDPOINT :string = 'https://fra.cloud.appwrite.io/v1'
-const APPWRITE_PROJECT_ID :string  = '680921f40003a525df14'
+const APPWRITE_ENDPOINT :string = 'Your Appwrith endpoint'
+const APPWRITE_PROJECT_ID :string  = 'Your Appwrith projectId'
 
 type CreateUserAccount ={
     email:string,
