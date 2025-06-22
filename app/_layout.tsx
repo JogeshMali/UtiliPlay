@@ -9,9 +9,7 @@ export default function RootLayout() {
       
      
       
-      <Stack.Screen 
-      name="screens/productDetails"
-      options={{title:'Product details',headerShown:true}}/> 
+   
     </Stack>
      
 }
