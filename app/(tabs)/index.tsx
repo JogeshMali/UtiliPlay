@@ -1,74 +1,171 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const passwordSchema = Yup.object().shape({
+  passwordLength: Yup.number()
+    .min(4, 'Should be min of 4 characters')
+    .max(16, 'Should be max of 16 characters')
+    .required('Length is required')
+})
+export default function PasswordGenerator() {
+  const [password, setPassword] = useState('')
+  const [lowercase, setLowerCase] = useState(true)
+  const [upercase, setUperCase] = useState(false)
+  const [number, setNumber] = useState(false)
+  const [symbols, setSymbols] = useState(false)
+  const [isPassword, setIsPassword] = useState(false)
 
-export default function HomeScreen() {
+  const generatePssword = (passwordLength: number) => {
+    let characterList = ''
+    const upperCaseList = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    const lowerCaseList = 'abcdefghijklmnopqrstuvwxyz'
+    const numberList = '0123456789'
+    const symbolsList = '!@#$%&*-+^'
+    if (upercase) characterList += upperCaseList
+    if (lowercase) characterList += lowerCaseList
+    if (number) characterList += numberList
+    if (symbols) characterList += symbolsList
+    if (characterList.length === 0) {
+      setPassword('Select at least one option!')
+      setIsPassword(true)
+      return
+    }
+    setPassword(createPassword(characterList, passwordLength))
+    setIsPassword(true)
+
+  }
+  const createPassword = (characterList: string, passwordLength: number) => {
+    let result = ''
+    for (let i = 0; i < passwordLength; i++) {
+      let charIndex = Math.round(Math.random() * characterList.length)
+      result += characterList.charAt(charIndex);
+    }
+    return result
+  }
+  const resetPassword = () => {
+    setPassword('')
+    setLowerCase(true)
+    setUperCase(false)
+    setNumber(false)
+    setSymbols(false)
+    setIsPassword(false)
+  }
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+    <ScrollView keyboardShouldPersistTaps="handled" className='flex-1 bg-black'>
+      <SafeAreaView className='bg-blacko'>
+        <View  className='p-3'>
+          <Text className=" text-center text-white text-2xl  m-3">Password Generator</Text>
+          <Formik
+            initialValues={{ passwordLength: '' }}
+            validationSchema={passwordSchema}
+            onSubmit={(values) => {
+              generatePssword(+values.passwordLength)
+            }}
+          >{
+              ({
+                values,
+                handleSubmit,
+                handleReset,
+                errors,
+                touched,
+                isValid,
+                handleChange
+              }) => (
+                <>
+                  <View style={styles.inputWrapper}>
+                    <View className='flex-1 flex-col items-baseline'>
+                      <Text className='text-white text-xm'>Password Length</Text>
+                      {touched.passwordLength && errors.passwordLength && (
+                        <Text className='text-red-600'>{errors.passwordLength}</Text>
+                      )}
+                    </View>
+                    <TextInput style={styles.inputstyle} className='mr-3  p-2 w-1/3  '
+                      value={values.passwordLength}
+                      onChangeText={handleChange('passwordLength')}
+                      placeholder='Ex. 8'
+                      keyboardType="numeric" 
+                      placeholderTextColor={"#fff"}
+                      />
+                  </View>
+                  <View  className='flex-1 flex-row justify-between mb-5 '>
+                      <Text className='text-white text-xm'>Include LowerCase</Text>
+                      <BouncyCheckbox
+                       useBuiltInState={false}
+                       isChecked={lowercase}
+                       onPress={()=>setLowerCase(!lowercase)}
+                       fillColor='#29AB87'/>
+                  </View>
+                  <View  className='flex-1 flex-row justify-between mb-5'>
+                      <Text className='text-white text-xm'>Include UpperCase</Text>
+                      <BouncyCheckbox
+                       useBuiltInState={false}
+                       isChecked={upercase}
+                       onPress={()=>setUperCase(!upercase)}
+                       fillColor='#FED85D'/>
+                  </View>
+                  <View  className='flex-1 flex-row justify-between mb-5'>
+                      <Text className='text-white text-xm'>Include Numbers</Text>
+                      <BouncyCheckbox
+                       useBuiltInState={false}
+                       isChecked={number}
+                       onPress={()=>setNumber(!number)}
+                       fillColor='#FC80A5'/>
+                  </View>
+                  <View  className='flex-1 flex-row justify-between mb-5'>
+                      <Text className='text-white text-xm'>Include Symbols</Text>
+                      <BouncyCheckbox
+                       useBuiltInState={false}
+                       isChecked={symbols}
+                       onPress={()=>setSymbols(!symbols)}
+                       fillColor='#29AB87'/>
+                  </View>
+                  <View className='flex-1 flex-row justify-evenly '>
+                    <TouchableOpacity className='bg-slate-400 rounded-sm  border-white py-1 px-2 '
+                    disabled={!isValid}
+                    onPress={handleSubmit}>
+                      <Text  className='text-white text-xm'> Generate Password</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity className='bg-slate-400 rounded-sm  border-white py-1 px-2 '
+                    disabled={!isValid}
+                    onPress={()=>{handleReset();
+                         resetPassword()
+                    }}>
+                      <Text className='text-white text-xm '> Reset</Text>
+                    </TouchableOpacity>
+                  </View>
+                </>
+              )
+            }</Formik>
+            {isPassword?
+            <View className='flex-1 justify-center items-center'>
+            <View className=' flex-1 bg-white mt-5 justify-center items-center w-1/2 rounded-md px-3 py-2'>
+              <Text className='text-red-600 text-lg'>Result:</Text>
+              <Text className='text-base font-semibold'>Long Press to Copy</Text>
+              <Text className='text-xl font-bold  mt-1' selectable={true}>{password}</Text>
+            </View>
+            </View>:null
+            }
+        </View>
+      </SafeAreaView>
+    </ScrollView>
+  )
 }
-
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  inputWrapper:{
+    
+    marginBottom:14,
+    justifyContent:"space-between",
+    alignItems:"center",
+    flexDirection:"row"
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+  inputstyle:{
+    borderRadius:4,
+    borderWidth:1,
+    borderColor:"white",
+    color:"white"
+  }
+})

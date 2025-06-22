@@ -1,45 +1,49 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import { FontAwesome, Ionicons } from '@expo/vector-icons'
+import { Tabs } from 'expo-router'
+import React from 'react'
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+export default function _layout() {
   return (
-    <Tabs
+    <Tabs 
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
+        headerShown:false,
+        tabBarActiveTintColor:"green",
+        tabBarInactiveTintColor:"gray",
+        tabBarStyle:{
+            backgroundColor:"#1A1A1A",
+            borderRadius:50,
+            padding:5,    
+            borderTopWidth:0,
+            position:"absolute",
+            marginBottom:10,
+            marginHorizontal:5
+        }
+        }}>
+
+        <Tabs.Screen 
+          name='product'
+          options={{title:'Trending Products', 
+                    headerShown:true,
+          tabBarIcon:({color})=> <FontAwesome  name='shopping-cart' size={20} color={color} />} }/>
+        <Tabs.Screen 
+          name='index'
+          options={{title:'Pass Gen', 
+          tabBarIcon:({color})=> <Ionicons  name='key' size={20} color={color} />} }/>
+
+        <Tabs.Screen 
+          name='bgChanger'
+          options={{title:'BgChanger', 
+          tabBarIcon:({color})=> <Ionicons  name='brush' size={20} color={color} />} }/>
+       
+        <Tabs.Screen 
+          name='CurrencyConvertor'
+          options={{title:'Currency Convertor', 
+          tabBarIcon:({color})=> <FontAwesome  name='money' size={20} color={color} />} }/>
+
+        <Tabs.Screen 
+          name='tictactoe'
+          options={{title:'Tic Tac Toe', 
+          tabBarIcon:({color})=> <FontAwesome  name='gamepad' size={20} color={color} />} }/>
     </Tabs>
-  );
+  )
 }
