@@ -1,50 +1,36 @@
-# Welcome to your Expo app 👋
+# 🔧 UtiliPlay – Utility & Fun Toolkit in React Native
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**UtiliPlay** is a compact, multi-purpose mobile application built with **React Native**, designed to blend everyday productivity tools with simple entertainment. Whether you're looking to **generate secure passwords**, **convert global currencies**, or **play a quick game of Tic Tac Toe**, UtiliPlay brings it all together in one intuitive and lightweight experience.
 
-## Get started
+---
 
-1. Install dependencies
+## 📋 Project Overview
 
-   ```bash
-   npm install
-   ```
+UtiliPlay is created for users who enjoy having essential tools and casual games in a single application. The app demonstrates the power of React Native by integrating multiple features seamlessly under a unified UI. From functional utilities like password generation and  currency conversion to the nostalgic charm of Tic Tac Toe, UtiliPlay showcases both utility and leisure.
 
-2. Start the app
+---
 
-   ```bash
-    npx expo start
-   ```
+## 🛠 Tech Stack
 
-In the output, you'll find options to open the app in a
+| Component         | Technology              |
+|------------------|--------------------------|
+| Framework         | React Native             |
+| Language          | JTypeScript  |
+| UI Components     | React Native Paper / Custom Styles |
+| State Management  | useState / useEffect     |
+| Navigation        | React Navigation         |
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 🧱 Features Summary
 
-## Get a fresh project
+- **Password Generator**  
+  Generate strong, random passwords with customizable settings like length, symbols, numbers, and capitalization.
 
-When you're ready, run:
+- **Currency Converter**  
+  Convert between international currencies in real time using exchange rates 
 
-```bash
-npm run reset-project
-```
+- **Tic Tac Toe Game**  
+  Enjoy a classic two-player or single-player Tic Tac Toe experience with simple game logic.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
