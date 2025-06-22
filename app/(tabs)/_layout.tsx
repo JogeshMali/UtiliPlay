@@ -20,21 +20,13 @@ export default function _layout() {
         }
         }}>
 
-        <Tabs.Screen 
-          name='product'
-          options={{title:'Trending Products', 
-                    headerShown:true,
-          tabBarIcon:({color})=> <FontAwesome  name='shopping-cart' size={20} color={color} />} }/>
+       
         <Tabs.Screen 
           name='index'
           options={{title:'Pass Gen', 
           tabBarIcon:({color})=> <Ionicons  name='key' size={20} color={color} />} }/>
 
-        <Tabs.Screen 
-          name='bgChanger'
-          options={{title:'BgChanger', 
-          tabBarIcon:({color})=> <Ionicons  name='brush' size={20} color={color} />} }/>
-       
+     
         <Tabs.Screen 
           name='CurrencyConvertor'
           options={{title:'Currency Convertor', 
